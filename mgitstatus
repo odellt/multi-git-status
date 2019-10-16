@@ -7,7 +7,7 @@ DEBUG=0
 
 usage () {
     cat << EOF >&2
-    
+
 Usage: $0 [--version] [-w] [-e] [-f] [--no-X] [DIR] [DEPTH=2]
 
 Scan for .git dirs under DIR and show git status. The scan goes 2
@@ -28,7 +28,7 @@ You can limit output with the following options:
   --no-uncommitted
   --no-untracked
   --no-stashes
-    
+
 EOF
 }
 
@@ -129,7 +129,7 @@ find -L "$ROOT_DIR" ${DEPTH:+"-maxdepth"} ${DEPTH:+"$DEPTH"} -type d | while rea
 do
     GIT_DIR="$PROJ_DIR/.git"
     GIT_CONF="$PROJ_DIR/.git/config"
-    
+
     # Check git config for this project to see if we should ignore this repo.
     IGNORE=$(git config -f "$GIT_CONF" --bool mgitstatus.ignore)
     if [ "$IGNORE" = "true" ]; then
@@ -164,9 +164,11 @@ do
     # they need a push or pull. We do this with various tests and put the name
     # of the branches in NEEDS_XXXX, seperated by newlines. After we're done,
     # we remove duplicates from NEEDS_XXX.
-    NEEDS_PUSH_BRANCHES="" 
+    NEEDS_PUSH_BRANCHES=""
     NEEDS_PULL_BRANCHES=""
     NEEDS_UPSTREAM_BRANCHES=""
+    CURRENT_BRANCH="cat $GIT_DIR/HEAD"
+    echo "$CURRENT_BRANCH"
 
     for REF_HEAD in $(cd "$GIT_DIR/refs/heads" && find . -type 'f' | sed "s/^\.\///"); do
         # Check if this branch is tracking an upstream (local/remote branch)
