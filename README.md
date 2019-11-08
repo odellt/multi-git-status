@@ -100,7 +100,7 @@ Or follow these instructions:
 
     $ curl -s -o mgitstatus https://raw.githubusercontent.com/odellt/multi-git-status/master/mgitstatus
     $ chmod 755 mgitstatus
-    $ sudo mv mgitstatus /usr/local/bin/
+    $ mv mgitstatus /usr/local/bin/
 
 # License
 
