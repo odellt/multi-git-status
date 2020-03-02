@@ -22,6 +22,7 @@ mgitstatus shows:
   changes (i.e. you've done a `fetch`), or that you specify the `-f` option.
   mgitstatus does NOT contact the remote by default.
 * **X stashes** if there are stashes.
+* **Branch** if the current branch is not master.
 
 Since there are a lot of different states a git repository can be in,
 mgitstatus makes no guarantees that *all* states are taken into account.
@@ -100,7 +101,7 @@ Or follow these instructions:
 
     $ curl -s -o mgitstatus https://raw.githubusercontent.com/odellt/multi-git-status/master/mgitstatus
     $ chmod 755 mgitstatus
-    $ sudo mv mgitstatus /usr/local/bin/
+    $ mv mgitstatus /usr/local/bin/
 
 # License
 
