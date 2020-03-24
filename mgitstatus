@@ -43,6 +43,7 @@ NO_UPSTREAM=0
 NO_UNCOMMITTED=0
 NO_UNTRACKED=0
 NO_STASHES=0
+CHECK_BRANCH=0
 
 while [ -n "$1" ]; do
     # Stop reading when we've run out of options.
@@ -85,6 +86,9 @@ while [ -n "$1" ]; do
     fi
     if [ "$1" = "--no-stashes" ]; then
         NO_STASHES=1
+    fi
+    if [ "$1" = "--check-branch" ]; then
+        CHECK_BRANCH=1
     fi
 
     shift
@@ -237,7 +241,8 @@ do
     IS_OK=0  # 0 = Repo needs something, 1 = Repo needs nothing ('ok')
     STATUS_NEEDS=""
 
-    if [ "$CURRENT_BRANCH" != "master" ]; then
+    if [ "$CHECK_BRANCH" -ne 0 ] && [ "$CURRENT_BRANCH" != $(git -C "${PROJ_DIR}" remote show origin | grep -m 1 "HEAD branch" | cut -d ":" -f 2) ]; then
+    # if [ "$CURRENT_BRANCH" != "master" ]; then
         STATUS_NEEDS="${STATUS_NEEDS}${B_CURRENT_BRANCH}Current branch: ${CURRENT_BRANCH}${C_RESET} "
     fi
     if [ -n "$NEEDS_PUSH_BRANCHES" ] && [ "$NO_PUSH" -eq 0 ]; then
